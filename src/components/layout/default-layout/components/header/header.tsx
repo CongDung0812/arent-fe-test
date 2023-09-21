@@ -25,44 +25,38 @@ const MENU_ITEMS = [
   {
     name: '自分の記録',
     Icon: MemmoIcon,
-    path: '/',
+    path: '/my-own-record',
   },
   {
     name: 'チャレンジ',
     Icon: ChallengeIcon,
-    path: '/record',
   },
   {
     name: 'お知らせ',
     Icon: InfoIcon,
-    path: '/column',
   },
 ]
 
 const DRAWER_MENU_ITEMS = [
   {
     name: '自分の記録',
-    path: '/',
+    path: '/my-own-record',
   },
   {
     name: '体重グラフ',
-    path: '/',
   },
   {
     name: '目標',
-    path: '/',
   },
   {
     name: '選択中のコース',
-    path: '/',
   },
   {
     name: 'コラム一覧',
-    path: '/',
+    path: '/notice',
   },
   {
     name: '設定',
-    path: '/',
   },
 ]
 
@@ -85,12 +79,20 @@ export const Header: FunctionComponent = () => {
           width="100%"
           maxWidth={960}
         >
-          <Image src="/images/logo.svg" alt="logo" width={100} height={40} />
+          <Link href="/" legacyBehavior>
+            <Image
+              src="/images/logo.svg"
+              alt="logo"
+              width={100}
+              height={40}
+              style={{ cursor: 'pointer' }}
+            />
+          </Link>
           <Stack direction="row" alignItems="center" spacing={4}>
             {MENU_ITEMS.map(({ name, path, Icon }) => (
-              <Link key={name} href={path} passHref legacyBehavior>
+              <Link key={name} href={path || ''} passHref legacyBehavior>
                 <Stack direction="row" spacing={1} sx={{ cursor: 'pointer' }}>
-                  {path === MENU_ITEMS[2].path ? (
+                  {name === 'お知らせ' ? (
                     <Badge badgeContent={1} color="warning">
                       <Icon />
                     </Badge>
@@ -139,8 +141,8 @@ export const Header: FunctionComponent = () => {
       >
         <Stack bgcolor={theme.palette.gray.gray400}>
           {DRAWER_MENU_ITEMS.map(({ name, path }) => (
-            <Link key={name} href={path} passHref legacyBehavior>
-              <MenuItem>
+            <Link key={name} href={path || ''} passHref legacyBehavior>
+              <MenuItem onClick={() => setAnchorEl(null)}>
                 <Typography color="white" py={0.875} px={3.25} minWidth={280}>
                   {name}
                 </Typography>

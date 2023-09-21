@@ -11,7 +11,7 @@ export const Banner = () => {
       <Grid item xs={4.5}>
         <Box
           width="100%"
-          height="30vh"
+          height="39.9vh"
           position="relative"
           display="flex"
           justifyContent="center"
@@ -32,7 +32,7 @@ export const Banner = () => {
         </Box>
       </Grid>
       <Grid item xs={7.5}>
-        <Box height="30vh">
+        <Box height="40vh">
           <Chart
             data={DATA_CHART_HOME_PAGE as ChartData[]}
             labels={DATA_CHART_HOME_PAGE.map((data) => data.month + '月')}

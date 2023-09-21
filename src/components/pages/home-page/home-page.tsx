@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import {
   Box,
-  Button,
   ButtonBase,
   Grid,
   Stack,
@@ -12,6 +11,7 @@ import Banner from './components/banner'
 import Image from 'next/image'
 import { search } from '../../../utils/search'
 import { MENU_DATA } from '../../../data/menu-home-page'
+import AddMoreButton from '../../shared/add-more-button'
 
 const FILTER_BUTTON_ITEMS = [
   {
@@ -42,10 +42,13 @@ export const Homepage = () => {
     [data, filterText]
   )
 
-  const handleLoadMore = useCallback(() => setData([...data, ...MENU_DATA]), [data])
+  const handleLoadMore = useCallback(
+    () => setData([...data, ...MENU_DATA]),
+    [data]
+  )
 
   return (
-    <Stack alignItems="center" spacing={2.625} pb={8}>
+    <Stack alignItems="center" spacing={2.625} pb={7}>
       <Banner />
       <Stack maxWidth={960} width="100%" spacing={3}>
         <Stack direction="row" justifyContent="space-between">
@@ -117,17 +120,9 @@ export const Homepage = () => {
               ))}
             </Grid>
           </Box>
-          <Button
-            variant="contained"
-            sx={{
-              color: 'white',
-              background: theme.palette.gradient.primary,
-              boxShadow: 'none',
-            }}
-            onClick={handleLoadMore}
-          >
+          <AddMoreButton onClick={handleLoadMore}>
             記録をもっと見る
-          </Button>
+          </AddMoreButton>
         </Stack>
       </Stack>
     </Stack>

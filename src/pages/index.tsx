@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <>
       <Head>
-        <title>Healthy | 自分の記録</title>
+        <title>Healthy | ホームページ</title>
       </Head>
       <Homepage />
     </>
