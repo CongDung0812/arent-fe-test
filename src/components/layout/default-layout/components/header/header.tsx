@@ -53,7 +53,7 @@ const DRAWER_MENU_ITEMS = [
   },
   {
     name: 'コラム一覧',
-    path: '/notice',
+    path: '/column-list',
   },
   {
     name: '設定',

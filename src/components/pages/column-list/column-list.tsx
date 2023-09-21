@@ -1,131 +1,129 @@
-import React, { useState, useMemo, useCallback } from 'react'
-import {
-  Box,
-  Button,
-  ButtonBase,
-  Grid,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import React, { useState, useCallback } from 'react'
+import { Box, Divider, Grid, Stack, Typography, useTheme } from '@mui/material'
+import { NEWS_DATA } from '../../../data/news-data'
+import AddMoreButton from '../../shared/add-more-button'
 import Image from 'next/image'
-import { search } from '../../../utils/search'
-import { MENU_DATA } from '../../../data/menu-home-page'
 
-const FILTER_BUTTON_ITEMS = [
+const RECOMMENDED_DATA = [
   {
-    icon: '/images/home-page/icon_knife.svg',
-    value: 'morning',
+    name: 'RECOMMENDED COLUMN',
+    description: 'オススメ',
   },
   {
-    icon: '/images/home-page/icon_knife.svg',
-    value: 'lunch',
+    name: 'RECOMMENDED DIET',
+    description: 'ダイエット',
   },
   {
-    icon: '/images/home-page/icon_knife.svg',
-    value: 'dinner',
+    name: 'RECOMMENDED BEAUTY',
+    description: '美容',
   },
   {
-    icon: '/images/home-page/icon_cup.svg',
-    value: 'snack',
+    name: 'RECOMMENDED HEALTH',
+    description: '健康',
   },
 ]
 
 export const ColumnList = () => {
   const theme = useTheme()
-  const [filterText, setFilterText] = useState('')
-  const [data, setData] = useState(MENU_DATA)
+  const [data, setData] = useState(NEWS_DATA)
 
-  const filteredData = useMemo(
-    () => search(data || [], ({ title }) => `${title}`, filterText),
-    [data, filterText]
+  const handleLoadMore = useCallback(
+    () => setData([...data, ...NEWS_DATA]),
+    [data]
   )
 
-  const handleLoadMore = useCallback(() => setData([...data, ...MENU_DATA]), [data])
-
   return (
-    <Stack alignItems="center" spacing={2.625} pb={8}>
-      <Stack maxWidth={960} width="100%" spacing={3}>
-        <Stack direction="row" justifyContent="space-between">
-          {FILTER_BUTTON_ITEMS.map(({ icon, value }) => (
-            <ButtonBase
-              key={value}
-              onClick={() =>
-                filterText ? setFilterText('') : setFilterText(value)
-              }
-            >
-              <Box
-                width={150}
-                height={150}
-                display="flex"
-                justifyContent="center"
+    <Stack alignItems="center" spacing={2.625} pt={7} pb={8}>
+      <Stack maxWidth={960} width="100%" spacing={7}>
+        <Box>
+          <Stack direction="row" justifyContent="space-between">
+            {RECOMMENDED_DATA.map(({ name, description }, index) => (
+              <Stack
+                key={index}
                 alignItems="center"
+                justifyContent="center"
+                height={144}
+                width={215.98}
+                bgcolor={theme.palette.dark.dark600}
+                divider={
+                  <Divider sx={{ borderColor: 'white', width: '30%' }} />
+                }
+                spacing={0.5}
+                sx={{ aspectRatio: 2 / 1 }}
               >
-                <Image
-                  src="/images/home-page/background.svg"
-                  alt="menu-background"
-                  fill
-                />
-                <Box width="40%" height="40%" position="absolute" bottom={55}>
-                  <Image src={icon} alt="" fill />
-                </Box>
                 <Typography
-                  position="absolute"
-                  bottom={22}
-                  color="white"
-                  textTransform="capitalize"
-                  fontSize={20}
+                  textTransform="uppercase"
+                  fontSize={22}
                   fontWeight={400}
+                  textAlign="center"
+                  color="primary.main"
                 >
-                  {value}
+                  {name}
                 </Typography>
-              </Box>
-            </ButtonBase>
-          ))}
-        </Stack>
-        <Stack alignItems="center" spacing={3.25}>
-          <Box width="100%">
-            <Grid container spacing={1}>
-              {filteredData.map(({ img, title, date }, index) => (
-                <Grid key={`${title}-${index}`} item xs={3}>
-                  <Box
-                    width={234}
-                    height={234}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    position="relative"
-                  >
-                    <Image src={img} alt="" fill />
-                    <Typography
-                      position="absolute"
-                      bottom={0}
-                      left={0}
-                      color="white"
-                      fontSize={15}
-                      fontWeight={400}
-                      bgcolor={theme.palette.primary.main}
-                      px={1}
-                      textTransform="capitalize"
+                <Typography color="white" fontSize={18} fontWeight={300}>
+                  {description}
+                </Typography>
+              </Stack>
+            ))}
+          </Stack>
+        </Box>
+        <Stack spacing={3.25}>
+          <Box>
+            <Grid container columns={12} spacing={2.25}>
+              {data.map(({ tag, text, time, img }, index) => (
+                <Grid item key={index} xs={3}>
+                  <Stack spacing={0.5}>
+                    <Box
+                      width={234}
+                      height={145}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      position="relative"
                     >
-                      {date}.{title}
-                    </Typography>
-                  </Box>
+                      <Image src={img} alt="" fill />
+                      <Typography
+                        position="absolute"
+                        bottom={0}
+                        left={0}
+                        color="white"
+                        fontSize={15}
+                        fontWeight={400}
+                        bgcolor={theme.palette.primary.main}
+                        px={1}
+                        textTransform="capitalize"
+                      >
+                        {time}
+                      </Typography>
+                    </Box>
+                    <Stack>
+                      <Typography
+                        fontSize={15}
+                        fontWeight={300}
+                        color="dark.dark500"
+                        lineHeight="22px"
+                      >
+                        {text}
+                      </Typography>
+                      <Typography
+                        fontSize={12}
+                        fontWeight={300}
+                        color="primaryExtend.primary400"
+                        lineHeight="22px"
+                      >
+                        {tag}
+                      </Typography>
+                    </Stack>
+                  </Stack>
                 </Grid>
               ))}
             </Grid>
           </Box>
-          <Button
-            variant="contained"
-            sx={{
-              color: 'white',
-              background: theme.palette.gradient.primary,
-              boxShadow: 'none',
-            }}
-            onClick={handleLoadMore}
-          >
-            記録をもっと見る
-          </Button>
+          <Stack alignItems="center">
+            <AddMoreButton onClick={handleLoadMore}>
+              コラムをもっと見る
+            </AddMoreButton>
+          </Stack>
         </Stack>
       </Stack>
     </Stack>
