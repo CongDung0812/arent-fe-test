@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'NotoSansJPExtraLight';
+    src: url('./noto-san-jp/NotoSansJP-ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPLight';
+    src: url('./noto-san-jp/NotoSansJP-Light.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPRegular';
+    src: url('./noto-san-jp/NotoSansJP-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPMedium';
+    src: url('./noto-san-jp/NotoSansJP-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPSemiBold';
+    src: url('./noto-san-jp/NotoSansJP-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPBold';
+    src: url('./noto-san-jp/NotoSansJP-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansJPExtraBold';
+    src: url('./noto-san-jp/NotoSansJP-ExtraBold.ttf');
+}
